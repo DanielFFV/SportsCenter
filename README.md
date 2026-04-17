@@ -4,7 +4,7 @@
 ![Ionic](https://img.shields.io/badge/Ionic-3880FF?style=for-the-badge&logo=ionic&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 
-Interfaz frontend de un Sistema para inscripción en eventos deportivos de diversas disciplinas. Es un proyecto personal diseñado con un enfoque estructurado, modular y escalable para optimizar la administración de carreras y la seguridad.
+**SportsCenter** es el frontend de un sistema para la inscripción en eventos deportivos de diversas disciplinas. Permite gestionar perfiles individuales, grupos en competencias colectivas y registros de menores asociados a adultos responsables. Diseñado con un enfoque modular y escalable para optimizar tanto la administración de los eventos como la seguridad de los usuarios.
 
 ## ✨ Características Principales
 
