@@ -1,0 +1,190 @@
+// Variables de color según la paleta proporcionada
+$color-base: #000000;
+$color-primary: #FF6F30;
+$color-secondary: #1E90FF;
+$color-background: #E2E2E2;
+$color-support: #32CD32;
+$color-text: #FFFFFF;
+$color-accent: #FFD700;
+
+
+.group-card, .no-group-card, .search-group-card, .search-result-card {
+  --background: #{$color-background};
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+}
+
+.group-card{
+  @media (min-width: 768px) {
+    margin-inline: 25%;
+    width: 50%;
+  }
+}
+
+.group-header {
+  padding: 20px;
+  border-radius: 10px 10px 0 0;
+  color: $color-background;
+  background-image: url('/assets/images/runners.jpg');
+  aspect-ratio: 8/2;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.group-name {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: $color-accent;
+  background-color: rgba($color-base, 0.5);
+  width: fit-content;
+  border-radius: 8px;
+}
+
+.section-title {
+  font-size: 1.2rem;
+  color: $color-secondary;
+  margin-bottom: 15px;
+}
+
+.member-item {
+  --padding-start: 0;
+  --inner-padding-end: 0;
+  margin-bottom: 10px;
+  color: $color-secondary;
+
+  ion-icon {
+    color: $color-primary;
+  }
+}
+
+.status-badge {
+  margin-left: 10px;
+}
+
+.no-group-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.card-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.header-icon {
+  font-size: 3rem;
+  color: $color-primary;
+  margin-bottom: 15px;
+}
+
+.create-group-btn, .search-btn, .join-btn {
+  margin-top: 15px;
+}
+
+.captain-icon {
+  margin-left: 8px; /* Espacio entre el nombre y el icono */
+  color: $color-primary; /* Cambia el color según tu diseño */
+}
+
+ion-card-title {
+  color: $color-secondary;
+}
+ion-card-subtitle {
+  color: lighten($color-secondary,10%);
+}
+
+ion-avatar {
+  width: 50px;
+  height: 50px;
+}
+
+// ion-grid {
+//   font-size: medium;
+// }
+
+ion-note {
+  font-size: medium;
+  color: lighten($color-secondary,10%);
+
+  h3 {
+    color: $color-secondary;
+  }
+}
+
+ion-button {
+  --background: #{$color-primary};      /* Color de fondo personalizado */
+  --color: #{$color-text};             /* Color del texto */
+  font-weight: 510;
+  text-shadow: 1px 1px 2px black, -1px -1px 2px black, 1px -1px 2px black, -1px 1px 2px black;
+}
+
+p {
+  color: lighten($color-secondary, $amount: 10%);
+}
+
+ion-grid {
+  // display: grid;
+  // align-items: center;
+  // flex-wrap: wrap; // Permite que los elementos bajen a la siguiente línea si no hay espacio suficiente
+  // gap: 8px; // Espacio entre los elementos, puedes ajustarlo según prefieras
+  width: 100%;
+
+  ion-icon{
+    color: $color-primary;
+    size: 1.2rem;
+    margin-right: 5px;
+  }
+
+  h1 {
+    font-size: 1rem;
+    font-size: 600;
+    color: $color-secondary;
+    white-space: nowrap;
+  }
+
+  p {
+    margin-left: 25px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: lighten($color-secondary,10%);
+    white-space: nowrap;
+  }
+}
+
+@media (min-width: 768px) {
+  .no-group-card, .search-group-card {
+    flex: 1;
+    min-width: calc(50% - 10px);
+    max-width: calc(50% - 10px);
+  }
+
+  .search-result-card {
+    width: 100%;
+    margin-top: 20px;
+  }
+}
+
+@media (min-width: 768px) {
+  .no-group-card, .search-group-card, .search-result-card {
+    flex: 1;
+    min-width: calc(33.33% - 13.33px);
+    max-width: calc(50% - 13.33px);
+  }
+
+  .search-result-card {
+    width: 100%;
+    margin-top: 20px;
+  }
+}

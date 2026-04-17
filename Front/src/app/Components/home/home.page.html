@@ -1,0 +1,174 @@
+<ion-header [class.navbar-hidden]="!isNavbarVisible" class="navigation-header">
+  <ion-toolbar>
+    <nav class="section-nav">
+      <ul>
+        <li *ngFor="let section of sections" 
+            [class.active]="activeSection === section.id"
+            (click)="scrollToSection(section.id)">
+          <ion-icon [name]="section.icon"></ion-icon>
+          <span>{{ section.name }}</span>
+        </li>
+      </ul>
+    </nav>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding-bottom" (ionScroll)="onScroll($event)" [scrollEvents]="true">
+  <!-- Hero Section -->
+  <section  id="hero" class="hero-section">   
+      <h1>Bienvenido a GlobalGRegistry</h1>
+      <p>Tu plataforma definitiva para el running: entrena, compite y crece con nosotros</p>
+      <div class="button-container">
+        <ion-button expand="block" (click)="routerLink('registro')" class="cta-button">
+          ¡Únete ahora!
+        </ion-button>
+        <ion-button expand="block" (click)="routerLink('login')" class="login-button">
+          Iniciar sesión
+        </ion-button>
+      </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="features-section">
+    <h2>¿Por qué elegirnos?</h2>
+    <div class="features-grid">
+      <div class="feature-item">
+        <ion-icon name="trophy-outline"></ion-icon>
+        <h3>Carreras de calidad</h3>
+        <p>Accede a las mejores carreras seleccionadas específicamente para cada nivel</p>
+      </div>
+      <div class="feature-item">
+        <ion-icon name="people-outline"></ion-icon>
+        <h3>Comunidad activa</h3>
+        <p>Únete a una comunidad apasionada de corredores y comparte experiencias</p>
+      </div>
+      <div class="feature-item">
+        <ion-icon name="fitness-outline"></ion-icon>
+        <h3>Mejora continua</h3>
+        <p>Planes personalizados y seguimiento profesional de tu progreso</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Nueva sección de patrocinadores -->
+  <section id="sponsors" class="sponsors-section">
+    <h2>Nuestros patrocinadores</h2>
+    <div class="sponsors-wrapper">
+      <div class="sponsors-track" #trackRef>
+        <a class="sponsor-item" 
+         *ngFor="let sponsor of displaySponsors; let i = index"
+         [class.active]="i === centerIndex"
+         [href]="sponsor.url"
+         target="_blank">
+        <img [src]="sponsor.logo" [alt]="sponsor.name">
+      </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recomendaciones Section -->
+  <section id="recommendations" class="recomend-section">
+    <h2>Recomendaciones para ti</h2>
+    <ion-list class="recomend-list">
+      <ion-item *ngFor="let item of recomendationItems.slice(0, 4)" class="recomend-item" lines="none">
+        <div class="recomend-card">
+          <b>{{item.categoria}}</b>
+          <h3>{{ item.titulo }}</h3>
+          <p>{{ item.descripcion }}</p>
+          
+          <ion-img 
+            *ngIf="item.imagen" 
+            [src]="item.imagen" 
+            [alt]="item.titulo" 
+            class="feed-imagen"
+            loading="lazy">
+          </ion-img>
+          
+          <ion-button *ngIf="item.videoUrl" expand="block" fill="clear" (click)="abrirEnlace(item.videoUrl)">
+            <ion-icon name="play-circle-outline" slot="start"></ion-icon>
+            Ver video
+          </ion-button>
+        </div>
+      </ion-item>
+    </ion-list>
+  </section>
+
+  <!-- Upcoming Races Section -->
+  <section id="races" class="upcoming-races">
+    <h2>Próximas carreras</h2>
+    <div class="races-container">
+      <ion-card *ngFor="let carrera of carreras.slice(0, 6)" class="race-card">
+        <div class="race-content">
+          <div class="race-info">
+            <h3 class="race-title">{{ carrera.nombre }}</h3>
+            <div class="race-details">
+              <ion-icon name="calendar-outline"></ion-icon>
+              <span>{{ carrera.fechaCarrera | date:'fullDate':'':'es' }}</span>
+            </div>
+            <div class="race-details">
+              <ion-icon name="location-outline"></ion-icon>
+              <span>{{ carrera.ubicacion }}</span>
+            </div>
+            <div class="race-details" *ngIf="carrera.distancia">
+              <ion-icon name="speedometer-outline"></ion-icon>
+              <span>{{ carrera.distancia }}</span>
+            </div>
+            <div class="race-details" *ngIf="carrera.precio">
+              <ion-icon name="card-outline"></ion-icon>
+              <span>{{ carrera.precio | currency:'COP':'symbol':'1.0-0' }}</span>
+            </div>
+          </div>
+          <div class="race-image">
+            <img 
+              [src]="'assets/images/' + carrera.identificacion + '-HOME.jpg'" 
+              [alt]="carrera.nombre"
+              loading="lazy">
+          </div>
+        </div>
+        <div class="race-actions">
+          <ion-button fill="clear" (click)="openModalDetalle(carrera)">
+            Ver más
+            <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+          </ion-button>
+        </div>
+      </ion-card>
+    </div>
+    <ion-button expand="block" fill="clear" (click)="routerLink('login')">
+      Ver todas las carreras
+    </ion-button>
+  </section>
+</ion-content>
+
+<!-- Footer -->
+<ion-footer class="ion-no-border">
+  <div class="footer-content">
+    <div class="social-icons">
+      <a href="https://www.facebook.com/GlobalRegistryColombia" 
+         target="_blank" 
+         rel="noopener noreferrer"
+         aria-label="Facebook">
+        <ion-icon name="logo-facebook"></ion-icon>
+      </a>
+      <a href="https://www.instagram.com/GlobalRegistryCo/" 
+         target="_blank" 
+         rel="noopener noreferrer"
+         aria-label="Instagram">
+        <ion-icon name="logo-instagram"></ion-icon>
+      </a>
+      <a href="https://x.com/GlobalRegistryC
+      " 
+         target="_blank" 
+         rel="noopener noreferrer"
+         aria-label="Twitter">
+        <ion-icon name="logo-twitter"></ion-icon>
+      </a>
+      <a href="https://wa.me/1234567890" 
+         target="_blank" 
+         rel="noopener noreferrer"
+         aria-label="WhatsApp">
+        <ion-icon name="logo-whatsapp"></ion-icon>
+      </a>
+    </div>
+    <p>&copy; 2024 GlobalGRegistry. Todos los derechos reservados.</p>
+  </div>
+</ion-footer>

@@ -1,0 +1,84 @@
+// Variables de color según la paleta proporcionada
+$color-base: #000000;
+$color-primary: #FF6F30;
+$color-secondary: #1E90FF;
+$color-background: #E2E2E2;
+$color-support: #32CD32;
+$color-text: #FFFFFF;
+$color-accent: #FFD700;
+
+ion-card {
+  margin-bottom: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  align-items: center;
+  max-width: 100%;
+  margin: 10px;
+}
+
+ion-card-header {
+  background-color:rgb(209, 220, 230);
+  background-image: url('/assets/images/runner.jpg');
+  aspect-ratio: 8/1;
+  color: $color-background;
+  border-radius: 8px 8px 0 0;
+  border-bottom: 1px solid lighten($color-background,20%);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+ion-card-title,
+ion-card-subtitle {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  background-color: rgba($color-base, 0.5);
+  border-radius: 3px;
+  color: $color-accent;
+  
+  ion-icon{
+    margin-right: 10px;
+    color: $color-primary;
+  }
+}
+
+ion-card-subtitle {
+  ion-icon{
+    margin-left: 4px;
+  }
+}
+
+ion-item {
+  --padding-start: var(--padding-medium);
+  --inner-padding-end: var(--padding-medium);
+  --background: transparent;
+  border-bottom: 1px solid lighten($color-background,20%);
+  padding: 10px 0;
+  margin: 0;
+
+  ion-icon{
+    color: $color-primary;
+  }
+}
+
+h2 {
+  font-weight: bold;
+  margin-bottom: 4px;
+  color: $color-secondary;
+}
+
+p {
+  margin: 0;
+  color: lighten($color-secondary,10%);
+}
+
+@media (min-width: 768px) {
+  ion-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    row-gap: 5px;
+    column-gap: 60px;
+  }
+
+}

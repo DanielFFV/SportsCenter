@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Crear Carrera</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="carreraForm" (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label position="floating">Nombre de la Carrera</ion-label>
+      <ion-input formControlName="nombreCarrera" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Ubicación</ion-label>
+      <ion-input formControlName="ubicacion" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Responsable</ion-label>
+      <ion-input formControlName="responsable" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Identificación</ion-label>
+      <ion-input formControlName="identificacion" type="text"></ion-input>
+    </ion-item>
+
+    <br><br>
+
+    <ion-item>
+      <ion-label position="floating">Fecha de la Carrera</ion-label>
+      <ion-datetime formControlName="fechaCarrera" displayFormat="YYYY-MM-DD"></ion-datetime>
+    </ion-item>
+
+    <ion-button expand="full" type="submit" [disabled]="!carreraForm.valid">Crear Carrera</ion-button>
+  </form>
+</ion-content>

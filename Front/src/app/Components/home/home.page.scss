@@ -1,0 +1,788 @@
+// Variables y mixins
+$breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1200px
+);
+
+// Variables de color según la paleta
+// //Claro
+$color-base: #000000; /* Negro */
+$color-primary: #FF6F30; /* Naranja */
+$color-secondary: #1E90FF; /* Azul */
+$color-background: #E2E2E2; /* Gris */
+$color-support: #32CD32; /* Verde Lima */
+$color-text: #FFFFFF; /* Blanco */
+$color-accent: #FFD700; /* Dorado */
+
+// //Oscuro
+// $color-base: #2C3E50; /* Azul Petróleo */
+// $color-primary: #FF5733; /* Naranja Vibrante */
+// $color-secondary: #3498DB; /* Azul Eléctrico */
+// $color-background: #273746; /* Gris Oscuro */
+// $color-support: #F4D03F; /* Amarillo Suave */
+// $color-text: #FFFFFF; /* Blanco */
+// $color-accent: #D35400; /* Naranja Intenso */
+
+// $color-base: #34495E; /* Azul Noche */
+// $color-primary: #E74C3C; /* Rojo Intenso */
+// $color-secondary: #F39C12; /* Naranja Crepúsculo */
+// $color-background: #2C3E50; /* Gris Oscuro */
+// $color-support: #D5D8DC; /* Gris Plata */
+// $color-text: #FBFCFC; /* Blanco Nieve */
+// $color-accent: #2980B9; /* Azul Deportivo */
+
+// $color-base: #34495E; /* Azul Profundo */
+// $color-primary: #16A085; /* Verde Esmeralda */
+// $color-secondary: #F39C12; /* Amarillo Esplendor */
+// $color-background: #1A1A1D; /* Gris Carbón */
+// $color-support: #D5D8DC; /* Gris Nublado */
+// $color-text: #FFFFFF; /* Blanco Puro */
+// $color-accent: #E67E22; /* Naranja Cálido */
+
+// $color-base: #1C2833; /* Negro Azulado */
+// $color-primary: #2980B9; /* Azul Rey */
+// $color-secondary: #AAB7B8; /* Gris Plateado */
+// $color-background: #17202A; /* Negro Intenso */
+// $color-support: #566573; /* Gris Medio */
+// $color-text: #FDFEFE; /* Blanco Puro */
+// $color-accent: #AF7AC5; /* Lavanda Vibrante */
+
+
+
+
+
+
+// Estilos base
+:host {
+  --ion-color-primary: #{$color-primary};
+  --ion-color-secondary: #{$color-secondary};
+  --ion-background-color: #{$color-background};
+}
+
+ion-content {
+  --background: #{$color-background};
+  font-family: 'Roboto', sans-serif;
+}
+
+// Mixins para gradientes dinámicos
+
+@mixin subtle-gradient {
+  & {
+    background: linear-gradient(135deg, darken($color-background, 2%), white);
+  }
+}
+
+// Mixins para responsive
+@mixin respond-to($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (min-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  }
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin section-padding {
+  padding: 2rem 1rem;
+  
+  @include respond-to(md) {
+    padding: 4rem 2rem;
+  }
+}
+
+@mixin section-title {
+  color: $color-secondary;
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+  
+  @include respond-to(md) {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+  }
+  
+  &:after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: $color-primary;
+    margin: 1rem auto 0;
+    border-radius: 2px;
+  }
+}
+
+// Navigation Header Styles
+.navigation-header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  transition: transform 0.3s ease;
+  background: transparent;
+
+  &.navbar-hidden {
+    transform: translateY(-100%);
+  }
+
+  ion-toolbar {
+    --background: rgba($color-base, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba($color-text, 0.1);
+  }
+}
+
+.section-nav {
+  width: 100%;
+  padding: 0.5rem 1rem;
+
+  ul {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: rgba(darken($color-text, 40%), 0.7);
+      cursor: pointer;
+      padding: 0.5rem;
+      transition: all 0.3s ease;
+      position: relative;
+
+      &.active {
+        color: $color-primary;
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -2px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 20px;
+          height: 3px;
+          background: $color-primary;
+          border-radius: 2px;
+        }
+      }
+
+      &:hover {
+        color: $color-accent;
+        transform: scale(1.05);
+      }
+
+      ion-icon {
+        font-size: 1.5rem;
+        margin-bottom: 0.2rem;
+      }
+
+      span {
+        font-size: 0.8rem;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+// Hero Section
+.hero-section {
+  position: relative;
+  background: linear-gradient(rgba($color-base, 0.4), rgba($color-base, 0.2)), 
+              url('/assets/images/area1-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  min-height: 60vh;
+  @include flex-center;
+  flex-direction: column;
+  text-align: center;
+  padding: 2rem 1rem;
+
+  @include respond-to(md) {
+    min-height: 80vh;
+    padding: 4rem 2rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: $color-text;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba($color-base, 0.5);
+
+    @include respond-to(md) {
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  p {
+    font-size: 1.1rem;
+    color: $color-support;
+    margin-bottom: 2rem;
+    max-width: 600px;
+    line-height: 1.6;
+
+    @include respond-to(md) {
+      font-size: 1.4rem;
+    }
+  }
+
+  .button-container {
+    width: 100%;
+    max-width: 250px;
+    margin: 0 auto;
+
+    ion-button {
+      margin-bottom: 1rem;
+      height: 48px;
+      
+      &.cta-button {
+        --background: #{$color-primary};
+        --color: #{$color-text};
+        --border-radius: 25px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        
+        &:hover {
+          --background: #{darken($color-primary, 10%)};
+        }
+      }
+
+      &.login-button {
+        --background: #{rgba($color-primary, 0.08)};
+        --color: #{$color-text};
+        --border-color: #{$color-primary};
+        --border-style: solid;
+        --border-width: 2px;
+        --border-radius: 25px;
+
+        &:hover {
+          --background: #{rgba($color-support, 0.4)};
+        }
+      }
+    }
+  }
+}
+
+// Features Section
+.features-section {  
+  background: linear-gradient(135deg, rgba($color-background,0.5), rgba($color-secondary,0.2));
+
+  @include section-padding;
+
+  h2 {
+    @include section-title;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+
+    @include respond-to(md) {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+    }
+  }
+
+  .feature-item {
+    text-align: center;
+    padding: 1.5rem;
+    transition: transform 0.3s ease;
+    border-radius: 12px;
+    
+    &:hover {
+      transform: translateY(-5px);
+      background: linear-gradient(135deg, rgba($color-primary, 0.05), rgba($color-support, 0.05));
+    }
+
+    ion-icon {
+      font-size: 2.5rem;
+      color: $color-primary;
+      margin-bottom: 1rem;
+
+      @include respond-to(md) {
+        font-size: 3.5rem;
+      }
+    }
+
+    h3 {
+      color: $color-secondary;
+      font-size: 1.3rem;
+      margin: 0.5rem 0;
+
+      @include respond-to(md) {
+        font-size: 1.5rem;
+      }
+    }
+
+    p {
+      color: lighten($color-secondary, 20%);
+      line-height: 1.6;
+      font-size: 1rem;
+
+      @include respond-to(md) {
+        font-size: 1.1rem;
+      }
+    }
+  }
+}
+
+.sponsors-section {
+  // @include section-padding;
+  @include subtle-gradient;
+  & {
+    padding: 2rem 0rem;
+    overflow: hidden;
+  }
+  
+  h2 {
+    @include section-title;
+    // margin-bottom: 2rem;
+  }
+}
+
+.sponsors-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 2rem;
+}
+
+.sponsors-track {
+  display: flex;
+  gap: 2rem 5rem;
+  transition: transform 0.4s ease-out;
+  will-change: transform;
+  
+  // Duplicamos el ancho para el scroll infinito
+  & > * {
+    flex: 0 0 auto;
+  }
+}
+
+.sponsor-item {
+  background: white;
+  border-radius: 12px;
+  padding: 0rem;
+  width: 240px; // Ancho fijo para mejor control
+  aspect-ratio: 4/2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  opacity: 0.7;
+  transform: scale(0.9);
+  margin-left: 30px;
+  
+  &.active {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 4px 15px rgba($color-base, 0.15);
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba($color-base, 0.15);
+  }
+
+  a {
+    background: transparent;
+  }
+
+  img {
+    width: 100%;
+    aspect-ratio: 5/2;
+    object-fit: contain;
+    // mix-blend-mode: color-burn;
+  }
+}
+
+// Gradientes para fade effect en los bordes
+.sponsors-wrapper::before,
+.sponsors-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.sponsors-wrapper::before {
+  left: 0;
+  background: linear-gradient(to right, $color-background, transparent);
+}
+
+.sponsors-wrapper::after {
+  right: -3rem;
+  background: linear-gradient(to left, $color-background, transparent);
+}
+
+
+// Sección de recomendaciones
+.recomend-section {
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, darken($color-background, 2%), lighten($color-background, 25%));
+
+  h2 {
+    @include section-title;
+  }
+
+  .recomend-list {
+    display: grid;
+    // grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: transparent;
+
+    .recomend-item {
+      --background: transparent;
+      --padding-start: 0;
+      --padding-end: 0;
+      --inner-padding-end: 0;
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+
+      &::part(native) {
+        padding: 0;
+      }
+
+      .recomend-card {
+        background: lighten($color-background, 1%);
+        // background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba($color-base, 0.08);
+        padding: 1.5rem;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+
+        &:hover {
+          transform: translateY(-4px);
+          box-shadow: 5px 8px 24px rgba($color-base, 0.12);
+        }
+
+        b {
+          color: $color-primary;
+          font-size: 0.9rem;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          margin-bottom: 0.5rem;
+          display: block;
+        }
+
+        h3 {
+          color: $color-secondary;
+          font-size: 1.3rem;
+          margin: 0.5rem 0;
+          font-weight: 600;
+          line-height: 1.4;
+        }
+
+        p {
+          color: lighten($color-secondary, 20%);
+          line-height: 1.6;
+          margin-bottom: 1rem;
+          // Limitar a 3 líneas de texto
+          display: -webkit-box;
+          // -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        ion-img {
+          border-radius: 8px;
+          margin: 0.5rem 0;
+          overflow: hidden;
+          aspect-ratio: 16/9;
+          object-fit: cover;
+          width: 100%;
+        }
+
+        ion-button {
+          margin-top: auto;
+          --color: #{$color-primary};
+          
+          &:hover {
+            --color: #{darken($color-primary, 10%)};
+          }
+
+          ion-icon {
+            margin-right: 0.5rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Sección de próximas carreras
+.upcoming-races {
+  padding: 2rem 1rem;
+  // background: $color-background; //white;
+  background: linear-gradient(135deg, darken($color-background, 2%), lighten($color-background, 25%));
+
+
+  h2 {
+    @include section-title() }
+
+  .races-container {
+    max-width: 1430px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(385px, 1fr));
+    gap: 1rem;
+    padding: 0.5rem;
+  }
+
+  .race-card {
+    background: $color-background;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    .race-content {
+      display: flex;
+      padding: 1.2rem;
+      gap: 1rem;
+    }
+
+    .race-info {
+      flex: 1;
+    }
+
+    .race-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: $color-secondary;
+      margin-bottom: 0.8rem;
+      line-height: 1.4;
+    }
+
+    .race-details {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+      color: lighten($color-secondary, 10%);
+
+      ion-icon {
+        font-size: 1.25rem;
+        color: $color-primary;
+      }
+    }
+
+    .race-image {
+      width: 140px;
+      height: 140px;
+      border-radius: 12px;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .race-actions {
+      display: flex;
+      justify-content: flex-end;
+      padding: 0.2rem 0.2rem;
+      border-top: 1px solid $color-text;
+
+      ion-button {
+        --padding-start: 1rem;
+        --padding-end: 1rem;
+        
+        ion-icon {
+          margin-left: 0.5rem;
+        }
+      }
+    }
+  }
+}
+
+// Footer mejorado
+ion-footer {
+  background: linear-gradient(135deg, $color-base 0%, $color-secondary 100%);
+  
+  .footer-content {
+    padding: 1rem;
+    text-align: center;
+
+    .social-icons {
+      margin-bottom: 1.5rem;
+      
+      a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: rgba(white, 0.1);
+        color: $color-support;
+        margin: 0 0.5rem;
+        transition: all 0.3s ease;
+        
+        &:hover {
+          background: $color-primary;
+          color: white;
+          transform: translateY(-2px);
+        }
+
+        ion-icon {
+          font-size: 1.3rem;
+        }
+      }
+    }
+
+    p {
+      color: rgba(white, 0.8);
+      font-size: 0.9rem;
+    }
+  }
+}
+
+// Media queries para la navegación
+@media (max-width: 767px) {
+  .section-nav {
+    ul {
+      li {
+        span {
+          display: none;
+        }
+
+        ion-icon {
+          font-size: 1.8rem;
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+// Media queries para responsividad
+@media (min-width: 768px) {
+  .hero-section {
+    height: 80vh;
+    
+    h1 {
+      font-size: 4rem;
+    }
+    
+    p {
+      font-size: 1.6rem;
+    }
+  }
+
+  .features-section .features-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-section {
+    height: 60vh;
+    padding: 2rem 1rem;
+    
+    h1 {
+      font-size: 2.5rem;
+    }
+    
+    p {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .recomend-section {
+    .recomend-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  .recomend-section {
+    .recomend-list {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+}
+
+// Ajuste para pantallas pequeñas
+@media (max-width: 767px) {
+  .recomend-section {
+    padding: 3rem 1rem;
+    
+    .recomend-list {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+
+      .recomend-card {
+        h3 {
+          font-size: 1.2rem;
+        }
+      }
+    }
+  }
+  .upcoming-races{
+    padding: 1rem 1rem;
+
+    .races-container{
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+
+    .race-card {
+
+      .race-image {
+        width: 100px;
+        height: 100px;
+      }
+    }
+  }
+}
+
+@keyframes carousel-slide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}

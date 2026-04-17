@@ -1,0 +1,44 @@
+<ion-header class="gradient-header">
+  <ion-toolbar>
+    <ion-title>Crear Grupo</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="grupoForm" (ngSubmit)="onSubmit()">
+    <ion-list>
+      <!-- Campo de Nombre -->
+      <ion-item>
+        <ion-label position="floating">Nombre del Grupo</ion-label>
+        <ion-input formControlName="nombre" (ionChange)="grupoExistente($event.detail.value ?? '')"></ion-input>
+      </ion-item>
+      <!-- Error Messages -->
+      <ion-text color="danger" *ngIf="grupoForm.get('nombre')?.errors?.['required'] && (grupoForm.get('nombre')?.dirty || grupoForm.get('nombre')?.touched)">
+        <small>El nombre del grupo es obligatorio.</small>
+      </ion-text>
+      <ion-text color="danger" *ngIf="grupoForm.get('nombre')?.errors?.['minlength'] && (grupoForm.get('nombre')?.dirty || grupoForm.get('nombre')?.touched)">
+        <small>El nombre debe tener al menos 3 caracteres.</small>
+      </ion-text>
+      <ion-text color="danger" *ngIf="grupoForm.get('nombre')?.errors?.['grupoExistente'] && (grupoForm.get('nombre')?.dirty || grupoForm.get('nombre')?.touched)">
+        <small>Este nombre de grupo ya está en uso.</small>
+      </ion-text>
+
+      <!-- Campo de Cantidad de Corredores -->
+      <ion-item>
+        <ion-label position="floating">Cantidad de Corredores</ion-label>
+        <ion-input type="number" formControlName="cantidadCorredor"></ion-input>
+      </ion-item>
+      <ion-text color="danger" *ngIf="grupoForm.get('cantidadCorredor')?.errors?.['min'] && (grupoForm.get('cantidadCorredor')?.dirty || grupoForm.get('cantidadCorredor')?.touched)">
+        <small>La cantidad de corredores debe ser de al menos 1 corredor.</small>
+      </ion-text>
+    </ion-list>
+
+    <!-- Botón de Enviar -->
+    <ion-button shape="round" class="button-crear" expand="full" type="submit" [disabled]="!grupoForm.valid">Crear Grupo</ion-button>
+  </form>
+</ion-content>

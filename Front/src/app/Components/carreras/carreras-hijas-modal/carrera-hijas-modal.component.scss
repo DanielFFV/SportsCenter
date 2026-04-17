@@ -1,0 +1,150 @@
+// Variables de color según la paleta proporcionada
+$color-base: #000000;
+$color-primary: #FF6F30;
+$color-secondary: #1E90FF;
+$color-background: #E2E2E2;
+$color-support: #32CD32;
+$color-text: #FFFFFF;
+$color-accent: #FFD700;
+
+
+.modal-container {
+  background-color: $color-background;
+  border-radius: 15px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+ion-header {
+  // --background: linear-gradient(145deg, #{lighten($color-secondary, 10%)}, #{$color-secondary});
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+ion-toolbar {
+  --background: linear-gradient(145deg, #{lighten($color-secondary, 10%)}, #{$color-secondary});
+  // --background: transparent;
+  --color: #{$color-text};
+  
+  &::after {
+    display: none;
+  }
+
+  ion-title {
+    font-weight: 600;
+    font-size: 1.2rem;
+  }
+
+  ion-button {
+    --color: #{$color-text};
+  }
+}
+
+ion-content {
+  --background: #{$color-background};
+  --border-radius: 15px;
+
+}
+
+ion-list {
+  background: transparent;
+  padding: 5px;
+  flex: 1;
+  overflow-y: auto;
+  --border-radius: 10px;
+
+}
+
+.carrera-item {
+  --background: #{darken($color-background,5%)};
+  overflow: hidden;
+  --border-radius: 12px;
+  margin-bottom: 7px;
+  --padding-start: 8px;
+  --padding-end: 8px;
+  --padding-top: 8px;
+  --padding-bottom: 0px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+ion-thumbnail {
+  --size: 80px;
+  --border-radius: 8px;
+  margin-right: 16px;
+}
+
+ion-label h2 {
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 4px;
+  color: $color-secondary;
+}
+
+ion-label p {
+  display: flex;
+  align-items: center;
+  margin-top: 4px;
+  font-size: 14px;
+  color: lighten($color-secondary, 10%);
+}
+
+ion-label p ion-icon {
+  margin-top: -2px;
+  margin-right: 6px;
+  color: $color-primary;
+  font-size: 1.2rem;
+}
+
+ion-badge {
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 12px;
+}
+
+ion-item-option {
+  border-radius: 0 12px 12px 0;
+}
+
+ion-item-options {
+  border-radius: 0 12px 12px 0;
+  overflow: hidden;
+}
+
+.botones {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 110px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  
+  label{
+    font-size: 0.85rem;
+    font-weight: 550;
+    color: darken($color-secondary, 15%);
+
+    ion-icon {
+      margin-bottom: -4px;
+      padding: auto;
+      color: $color-support;
+      font-size: 1.2rem;
+    }
+  }
+
+  .boton-individual{
+    --background:#{$color-primary};
+    color: $color-text;
+  }
+
+  .boton-grupal{
+    --background:#{$color-accent};
+    color: $color-base;
+  }
+
+  @media (min-width: 768px) {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+}

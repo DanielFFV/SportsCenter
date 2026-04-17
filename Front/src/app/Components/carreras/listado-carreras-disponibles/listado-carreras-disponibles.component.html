@@ -1,0 +1,66 @@
+<section class="seccion-carreras">
+  <h2>Carreras disponibles</h2>
+  <ion-list class="race-list">
+    <ion-item *ngFor="let carrera of carrerasPadre" lines="none" class="race-item">
+      <ion-card class="race-card">
+        <div class="race-image-container">
+          <!-- getIdentificacionCortaImg(carrera.identificacion) -->
+          <ion-img
+            [src]="'assets/images/' + carrera.identificacion + '.jpg'"
+            (ionError)=" 'assets/images/default.jpg' "
+            alt="Imagen de la carrera"
+            class="race-image">
+          </ion-img>
+          <div class="race-overlay" [style.backgroundColor]="carrera.colorDeFondo + '99'">
+            <h2 class="race-title">{{ carrera.nombre }}</h2>
+          </div>
+        </div>
+        <ion-card-content>
+          <div class="race-details">
+            <ion-item lines="none" class="race-detail-item">
+              <ion-icon name="location-outline" slot="start" ></ion-icon>
+              <ion-label>{{ carrera.ubicacion }}</ion-label>
+            </ion-item>
+            <ion-item lines="none" class="race-detail-item">
+              <ion-icon name="calendar-outline" slot="start" ></ion-icon>
+              <ion-label>Fecha carrera: {{ carrera.fechaCarrera | date:'mediumDate':'':'es' }}</ion-label>
+            </ion-item>
+            <ion-item lines="none" class="race-detail-item">
+              <ion-icon name="calendar-sharp" slot="start" ></ion-icon>
+              <ion-label>Fecha cierre inscripción: {{ carrera.fechaCierreInscripciones | date:'mediumDate':'':'es' }}</ion-label>
+            </ion-item>
+            <ion-item lines="none" class="race-detail-item">
+              <ion-icon name="people-outline" slot="start" ></ion-icon>
+              <ion-label>{{ carrera.cupoMaximo - carrera.numeroParticipantes }} cupos restantes</ion-label>
+            </ion-item>
+            <ion-item lines="none" class="race-detail-item" *ngIf="carrera.distancia">
+              <ion-icon name="speedometer-outline" slot="start"></ion-icon>
+              <ion-label>{{ carrera.distancia }} km</ion-label>
+            </ion-item>
+          </div>
+          <div class="race-actions">
+            <ion-button class="race-action-detail" (click)="openModalDetalle(carrera)">
+              <ion-icon name="information-circle-outline" slot="start"></ion-icon>
+              Detalles
+            </ion-button>
+            <ion-button class="race-action-categorie" *ngIf="countCategoriasCarreras(carrera.identificacion) > 0" (click)="openCarrerasHijasModal(carrera)" >
+              <ion-icon name="person-add-outline" slot="start"></ion-icon>
+              Inscribirse
+            </ion-button>
+            <ion-button class="race-action-insciption" (click)="inscribirse(carrera,false)" *ngIf="puedeInscribir(carrera) && countCategoriasCarreras(carrera.identificacion) == 0">
+              <ion-icon name="person-add-outline" slot="start"></ion-icon>
+              Inscribirse
+            </ion-button>
+            <ion-button class="race-action-inscriptionG" *ngIf="carrera.estadoGrupos && esCapitan && countCategoriasCarreras(carrera.identificacion) == 0" fill="solid" (click)="inscribirse(carrera,true)" >
+              <ion-icon name="people-outline" slot="start"></ion-icon>
+              Inscribir equipo
+            </ion-button>
+            <div>
+              
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+  </ion-list>
+</section>

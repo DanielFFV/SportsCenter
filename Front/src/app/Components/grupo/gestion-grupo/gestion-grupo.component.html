@@ -1,0 +1,125 @@
+<!-- Sección cuando tiene grupo -->
+<ng-container *ngIf="grupo != null; else sinGrupoTemplate">
+  <ion-card class="group-card">
+    <div class="group-header">
+      <h2 class="group-name">{{ grupo.nombre }}</h2>
+      <ion-badge [color]="grupo.estado ? 'success' : 'warning'">
+        {{ grupo.estado ? 'Activo' : 'Inactivo' }}
+      </ion-badge>
+    </div>
+    <ion-card-content>
+      <h3 class="section-title">Miembros del Grupo</h3>
+      <ion-list>
+        <ion-item *ngFor="let miembro of miembrosGrupo" class="member-item">
+          <!-- Espacio para agregar imagen de persona--> <!--
+          <ion-avatar slot="start">
+            <img [src]="miembro.corredor.persona.avatar" alt="miembro.corredor.persona.nombre miembro.corredor.persona.apellido">
+          </ion-avatar>-->
+          <ion-label>
+            <h2>
+              {{ miembro.corredor.persona.nombre }} {{ miembro.corredor.persona.apellido }}
+            </h2>
+            <p>
+              {{ miembro.capitan ? 'Capitán' : 'Miembro' }}
+              <ion-icon *ngIf="miembro.capitan" name="shield" slot="start" class="captain-icon"></ion-icon>
+            </p>
+            <ion-badge [color]="miembro.estado ? 'success' : 'medium'" class="status-badge">
+              {{ miembro.estado ? 'Activo' : 'Inactivo' }}
+            </ion-badge>
+          </ion-label>
+          <ion-note slot="end">
+            <h3>
+              <ion-icon name="calendar-outline" size="medium"></ion-icon>
+              Fecha de Creación
+            </h3>            
+            {{ miembro.fechaCreacion | date:'mediumDate':'':'es' }}
+          </ion-note>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ng-container>
+
+<!-- Sección cuando no tiene grupo -->
+<ng-template #sinGrupoTemplate>
+  <div class="no-group-container">
+    <div class="card-wrapper">
+      <ion-card class="no-group-card"  *ngIf="grupoSearch === null">
+        <ion-card-header>
+          <ion-icon name="people-outline" class="header-icon"></ion-icon>
+          <ion-card-title>
+            ¿Todavía no tienes un grupo?
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p>Únete a un grupo existente o crea uno nuevo para comenzar a correr con otros.</p>
+          <ion-button expand="block" (click)="openModalCrearGrupo()" class="create-group-btn">
+            <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+            Crear nuevo grupo
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card class="search-group-card">
+        <ion-card-header>
+          <ion-card-title>
+            Buscar un grupo existente
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-item>
+            <ion-input [(ngModel)]="nombreGrupo" placeholder="Nombre del grupo" required></ion-input>
+          </ion-item>
+          <ion-button expand="block" (click)="findGrupo(nombreGrupo)" class="search-btn">
+            <ion-icon name="search-outline" slot="start"></ion-icon>
+            Buscar
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <!-- Resultado de la Búsqueda -->
+    <ion-card *ngIf="grupoSearch !== null" class="search-result-card">
+      <ion-card-header>
+        <ion-card-title>{{ grupoSearch.nombre }}</ion-card-title>
+        <ion-card-subtitle>Grupo de corredores</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row *ngIf="corredorCapitan != ''">
+            <ion-col size="12" size-md="6">
+              <h1> 
+                <ion-icon name="shield"></ion-icon> 
+                Capitan: 
+              </h1>
+              <p>{{ corredorCapitan }}</p> 
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12" size-md="6">
+              <h1>
+                <ion-icon name="flag-outline"></ion-icon>
+                Estado: 
+              </h1>
+              <p>{{ grupoSearch.estado ? 'Activo' : 'Inactivo' }} </p> 
+            </ion-col>
+            <ion-col size="12" size-md="6">
+              <h1>
+                <ion-icon name="people-outline"></ion-icon>
+                Puestos disponibles: 
+              </h1>
+              <p> {{ puestosDisponibles }} </p> 
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-button expand="block" (click)="crearSolicitud(grupoSearch)" 
+                    [disabled]="solicitoUnirse(grupoSearch)"
+                    [color]="solicitoUnirse(grupoSearch) ? 'medium' : 'success'"
+                    class="join-btn">
+          <ion-icon [name]="solicitoUnirse(grupoSearch) ? 'checkmark-circle-outline' : 'enter-outline'" slot="start"></ion-icon>
+          {{ solicitoUnirse(grupoSearch) ? 'Solicitud enviada' : 'Unirme al grupo' }}
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ng-template>

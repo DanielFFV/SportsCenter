@@ -1,0 +1,369 @@
+<ion-content class="runner-form-content">
+  <form [formGroup]="personaForm" (ngSubmit)="onSubmit()">
+    <ion-card >
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="person-add-outline"></ion-icon>
+          Únete a nuestra comunidad
+        </ion-card-title>
+        <ion-button class="close-button" (click)="routerToHome()">
+          <ion-icon name="close-outline" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-grid>
+           <!-- Personal Information Section -->
+           <div class="section-container">
+            <h3 class="section-title">Información Personal</h3>
+            <ion-row>
+              <ion-col size="12" size-md="6">
+                <ion-item class="custom-item">
+                  <ion-label position="floating">Nombre</ion-label>
+                  <ion-input formControlName="nombre" type="text" [clearOnEdit]="true" placeholder="Ingresa tus nombres" maxlength="30" justify="ion-text-center" required></ion-input>
+                </ion-item>
+                <ion-text color="danger" class="error-message" *ngIf="personaForm.get('nombre')?.touched && personaForm.get('nombre')?.errors?.['required']">
+                  El nombre es requerido
+                </ion-text>
+                <ion-text color="danger" class="error-message" 
+                  *ngIf="personaForm.get('nombre')?.touched && (personaForm.get('nombre')?.errors?.['minlength'] || personaForm.get('nombre')?.errors?.['maxlength'])">
+                  El mínimo de caracteres es 2 y el máximo es 30
+                </ion-text>
+                <ion-text color="danger" class="error-message" 
+                  *ngIf="personaForm.get('nombre')?.touched && personaForm.get('nombre')?.errors?.['pattern']">
+                  Solo se permiten caracteres alfanuméricos
+                </ion-text>
+
+                <ion-item class="custom-item">
+                  <ion-label position="floating">Apellido</ion-label>
+                  <ion-input formControlName="apellido" type="text" [clearOnEdit]="true" placeholder="Ingresa tus apellidos" maxlength="30" required></ion-input>
+                </ion-item>
+                <ion-text color="danger" class="error-message" *ngIf="personaForm.get('apellido')?.touched && personaForm.get('apellido')?.errors?.['required']">
+                  El apellido es requerido
+                </ion-text>
+                <ion-text color="danger" class="error-message" 
+                  *ngIf="personaForm.get('apellido')?.touched && (personaForm.get('apellido')?.errors?.['minlength'] || personaForm.get('apellido')?.errors?.['maxlength'])">
+                  El mínimo de caracteres es 2 y el máximo es 30
+                </ion-text>
+                <ion-text color="danger" class="error-message" 
+                  *ngIf="personaForm.get('apellido')?.touched && personaForm.get('apellido')?.errors?.['pattern']">
+                  Solo se permiten caracteres alfanuméricos
+                </ion-text>
+
+                <ion-item class="custom-item">
+                  <ion-select [(ngModel)]="selectedDocumentType" (ngModelChange)="validateDocumentInRealTime()" formControlName="tipoDocumentoId" label="Tipo de Documento" interface="popover" placeholder="Seleccione un tipo" required>
+                    <ion-select-option *ngFor="let tipo of tipoDocument" [value]="tipo.id">
+                      {{ tipo.nombre }}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-item>
+                <ion-text color="danger" class="error-message" *ngIf="personaForm.get('tipoDocumentoId')?.touched && personaForm.get('tipoDocumentoId')?.errors?.['required']">
+                  El tipo de documento es requerido
+                </ion-text>
+  
+                <ion-item class="custom-item">
+                  <ion-label position="floating">Número de Documento</ion-label>
+                  <ion-input [(ngModel)]="documentNumber" (ngModelChange)="validateDocumentInRealTime()" formControlName="documento" type="text" [clearOnEdit]="true" placeholder="Ingresa documento de identificación" required></ion-input>
+                </ion-item>
+                <ion-text color="danger" class="error-message" *ngIf="personaForm.get('documento')?.touched && personaForm.get('documento')?.errors?.['required']">
+                  El número de documento es requerido
+                </ion-text>
+                <ion-text color="danger" class="error-message" *ngIf="!isValidDocument && documentNumber">
+                  El número de documento no tiene el formato correcto
+                </ion-text>
+
+                <ion-item class="custom-item">
+                  <ion-label>Género</ion-label>
+                  <ion-select formControlName="genero" interface="popover" placeholder="Seleccione un género" justify="end" required>
+                    <ion-select-option value="F">Femenino</ion-select-option>
+                    <ion-select-option value="M">Masculino</ion-select-option>
+                    <ion-select-option value="O">Otro</ion-select-option>
+
+                  </ion-select>
+                </ion-item>
+                <ion-text color="danger" class="error-message" *ngIf="personaForm.get('genero')?.touched && personaForm.get('genero')?.errors?.['required']">
+                  El género es requerido
+                </ion-text>
+
+                <ion-item class="custom-item">
+                  <ion-label position="floating">Contraseña</ion-label>
+                  <ion-input 
+                    formControlName="password" 
+                    type="password" 
+                    [clearOnEdit]="true" 
+                    placeholder="Crea tu contraseña" 
+                    required
+                  >
+                  <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+                </ion-input>
+                </ion-item>
+                <ion-text color="danger" class="error-message" 
+                  *ngIf="personaForm.get('password')?.touched && personaForm.get('password')?.errors?.['required']">
+                  La contraseña es requerida
+                </ion-text>
+                <ion-text color="danger" class="error-message" 
+                  *ngIf="personaForm.get('password')?.touched && personaForm.get('password')?.errors?.['minlength']">
+                  La contraseña debe tener al menos 8 caracteres
+                </ion-text>
+                <ion-text color="danger" class="error-message" 
+                  *ngIf="personaForm.get('password')?.touched && personaForm.get('password')?.errors?.['pattern']">
+                  La contraseña debe contener al menos una mayúscula, una minúscula, un número y un carácter especial: &#64;$!%*?&
+                </ion-text>
+
+                <ion-item class="custom-item">
+                  <ion-label position="floating">Confirmar Contraseña</ion-label>
+                  <ion-input 
+                    formControlName="confirmPassword" 
+                    type="password" 
+                    [clearOnEdit]="true" 
+                    placeholder="Confirma tu contraseña" 
+                    required
+                  >
+                  <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+                </ion-input>
+                </ion-item>
+                <ion-text color="danger" class="error-message" 
+                  *ngIf="personaForm.get('confirmPassword')?.touched && personaForm.get('confirmPassword')?.errors?.['required']">
+                  Confirmar contraseña es requerido
+                </ion-text>
+                <ion-text color="danger" class="error-message" 
+                  *ngIf="personaForm.get('confirmPassword')?.touched && personaForm.get('confirmPassword')?.errors?.['passwordMismatch']">
+                  Las contraseñas no coinciden
+                </ion-text>
+
+              </ion-col>
+
+              <ion-col size="12" size-md="6">
+                <ion-item class="custom-item">
+                  <ion-label position="floating" style="transform: translateY(-0.8px) scale(1);">Fecha de nacimiento <ion-text color="danger">*</ion-text></ion-label>
+                  <ion-datetime
+                    formControlName="fechaNacimiento"
+                    presentation="date"
+                    [preferWheel]="true"
+                    locale="es-ES"
+                    [showDefaultButtons]="true"
+                    cancelText=" "
+                    doneText="Aceptar"
+                    clearText="Borrar"
+                    [max]="maxDate"
+                    [showClearButton]="true"
+                    (ionChange)="onFechaNacimientoChange($event)"
+                    size="fit-content"
+                    required
+                  ></ion-datetime>
+                </ion-item>
+                <ion-text color="danger" *ngIf="personaForm.get('fechaNacimiento')?.touched && personaForm.get('fechaNacimiento')?.errors?.['required']">
+                  <p class="ion-padding-start">La fecha de nacimiento es obligatoria</p>
+                </ion-text>
+                <ion-text color="danger" class="error-message" *ngIf="personaForm.get('fechaNacimiento')?.errors?.['invalidDate']">
+                  La fecha de nacimiento minima es {{minValidDate | date:'dd/MM/yyyy'}} (7 años).
+                </ion-text>
+              </ion-col>
+            </ion-row>
+        </div>
+
+        <div class="section-container" *ngIf="menorEdad">
+          <h3 class="section-title">Información de responsable</h3>
+          <ion-row>
+            <ion-col size="12" size-md="5">
+              <ion-item>
+                <ion-input
+                  formControlName="documentoResponsable"
+                  type="text"
+                  label="Documento del responsable"
+                  labelPlacement="floating"
+                  (ionChange)="documentoResponsable($event.detail.value ?? '')"
+                  [disabled]="isLoadingCorredor"
+                ></ion-input>
+                <ion-spinner *ngIf="isLoadingCorredor" slot="end"></ion-spinner>
+              </ion-item>
+              <ion-text 
+                color="danger" 
+                class="error-message" 
+                *ngIf="personaForm.get('documentoResponsable')?.touched && personaForm.get('documentoResponsable')?.errors?.['required']">
+                El número de documento del usuario responsable es requerido
+              </ion-text>
+            </ion-col>
+            
+            <ion-col size="12" size-md="5">
+              <ion-item *ngIf="corredorData" lines="none" class="corredor-info">
+                <ion-label>
+                  <h3>Corredor Responsable:</h3>
+                  <p>{{corredorData.persona.nombre}} {{corredorData.persona.apellido}}</p>
+                  <p>Documento: {{corredorData.persona.documento}}</p>
+                </ion-label>
+              </ion-item>
+              
+              <ion-item *ngIf="errorMessageCorredor" lines="none">
+                <ion-label class="ion-text-wrap" color="danger">
+                  {{errorMessageCorredor}}
+                </ion-label>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </div>
+
+        <!-- Contact Information Section -->
+        <div class="section-container">
+          <h3 class="section-title">Información de Contacto</h3>
+          <ion-row>
+            <ion-col size="12" size-md="4">
+              <ion-item class="custom-item">
+                <ion-label position="floating">Email</ion-label>
+                <ion-input formControlName="email" type="email" email [clearOnEdit]="true" placeholder="Ingresa tu correo electrónico" required></ion-input>
+              </ion-item>
+              <ion-text color="danger" class="error-message" *ngIf="personaForm.get('email')?.touched && personaForm.get('email')?.errors?.['required']">
+                El email es requerido
+              </ion-text>
+              <ion-text color="danger" class="error-message" *ngIf="personaForm.get('email')?.touched && (personaForm.get('email')?.errors?.['email'] || personaForm.get('email')?.errors?.['invalidEmail'])">
+                El formato de correo electrónico no es válido
+              </ion-text>
+            </ion-col>
+
+            <ion-col size="12" size-md="4">
+              <ion-item class="custom-item">
+                <ion-label position="floating">Número de Celular</ion-label>
+                <ion-input formControlName="celular" type="tel" [clearOnEdit]="true" placeholder="Ingresa tu número de celular" required></ion-input>
+              </ion-item>
+              <ion-text color="danger" class="error-message" *ngIf="personaForm.get('celular')?.touched && personaForm.get('celular')?.errors?.['required']">
+                El celular es requerido
+              </ion-text>
+              <ion-text color="danger" class="error-message" *ngIf="personaForm.get('celular')?.touched && personaForm.get('celular')?.errors?.['pattern']">
+                El celular debe tener unicamente 10 números
+              </ion-text>
+            </ion-col>
+
+            <ion-col size="12" size-md="4">
+              <ion-item class="custom-item">
+                <ion-label position="floating">Dirección de residencia</ion-label>
+                <ion-input formControlName="direccion" type="text" [clearOnEdit]="true" placeholder="Ingresa tu dirección" required></ion-input>
+              </ion-item>
+              <ion-text color="danger" class="error-message" *ngIf="personaForm.get('direccion')?.touched && personaForm.get('direccion')?.errors?.['required']">
+                La dirección es requerida
+              </ion-text>
+              <ion-text color="danger" class="error-message" *ngIf="personaForm.get('direccion')?.touched && personaForm.get('direccion')?.errors?.['invalidDireccion']">
+                La dirección contiene caracteres no permitidos
+              </ion-text>
+              <ion-text color="danger" class="error-message" *ngIf="personaForm.get('direccion')?.touched && personaForm.get('direccion')?.errors?.['formatoDireccion']">
+                El formato de la dirección no es válido. 
+                <br>
+                Ejemplos válidos: Calle 10 Norte # 25-30  ó  Avenida Siempre Viva 742A, Conjunto residencial 
+                <br>
+                Opciones permitidas (Calle|Carrera|Avenida|Diagonal|Transversal|Perimetral)
+              </ion-text>
+            </ion-col>
+
+          </ion-row>
+        </div>
+
+         <!-- Additional Information Section -->
+         <div class="section-container">
+          <h3 class="section-title">Información Adicional</h3>
+
+          <ion-row>
+            <ion-col size="12" size-md="4">
+              <ion-item class="custom-item">
+                <ion-label>Talla de Camiseta</ion-label>
+                <ion-select formControlName="tallaCamiseta" interface="popover" placeholder="Seleccione una talla" justify="end" required>
+                  <ion-select-option *ngFor="let talla of tallasCamiseta" [value]="talla">{{ talla }}</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-text color="danger" class="error-message" *ngIf="personaForm.get('tallaCamiseta')?.touched && personaForm.get('tallaCamiseta')?.errors?.['required']">
+                La talla de Camiseta es requerida
+              </ion-text>
+            </ion-col>
+
+            <ion-col size="12" size-md="4">
+              <ion-item class="custom-item">
+                <ion-label>EPS</ion-label>
+                <ion-select formControlName="eps" interface="action-sheet" placeholder="Seleccione una EPS" justify="end" required>
+                  <ion-select-option *ngFor="let eps of listaEPS" [value]="eps.id">{{ eps.nombre }}</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-text color="danger" class="error-message" *ngIf="personaForm.get('eps')?.touched && personaForm.get('eps')?.errors?.['required']">
+                La EPS es requerida
+              </ion-text>
+            </ion-col>
+
+            <ion-col size="12" size-md="4">
+              <ion-item class="custom-item">
+                <ion-label>RH</ion-label>
+                <ion-select formControlName="rh" interface="popover" placeholder="Seleccione un RH" justify="end" required>
+                  <ion-select-option *ngFor="let rh of listaRH" [value]="rh">{{ rh }}</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-text color="danger" class="error-message" *ngIf="personaForm.get('rh')?.touched && personaForm.get('rh')?.errors?.['required']">
+                El RH es requerido
+              </ion-text>
+            </ion-col>
+          </ion-row>
+         </div>
+         
+          <ion-row>
+            <ion-col size="12">
+              <ion-item lines="none">
+                <ion-checkbox formControlName="aceptaTerminos" slot="start"></ion-checkbox>
+                <ion-label>
+                  Acepto los
+                  <ion-text color="primary" (click)="mostrarTerminos()">Términos y Condiciones</ion-text>
+                </ion-label>
+              </ion-item>
+              <ion-text color="danger" *ngIf="personaForm.get('aceptaTerminos')?.touched && !personaForm.get('aceptaTerminos')?.value">
+                <p class="ion-padding-start">Debes aceptar los términos y condiciones.</p>
+              </ion-text>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col size="12">
+              <ion-item lines="none">
+                <ion-checkbox formControlName="aceptaPoliticas" slot="start"></ion-checkbox>
+                <ion-label>
+                  Acepto la
+                  <ion-text color="primary" (click)="mostrarPoliticaDatos()">Política de Tratamiento de Datos Personales</ion-text>
+                </ion-label>
+              </ion-item>
+              <ion-text color="danger" *ngIf="personaForm.get('aceptaPoliticas')?.touched && !personaForm.get('aceptaPoliticas')?.value">
+                <p class="ion-padding-start">Debes aceptar la política de tratamiento de datos.</p>
+              </ion-text>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-button expand="block" type="submit" [disabled]="!personaForm.valid || !isValidDocument" class="ion-margin-top">
+      <ion-icon name="save-outline" slot="start"></ion-icon>
+      Guardar Corredor
+    </ion-button>
+  </form>
+
+  <ion-modal [isOpen]="isModalOpen" animated="true">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>{{tituloModal}}</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="setOpen(false)">Cerrar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ng-container *ngIf="platform.is('mobile')">
+          <ion-button expand="block" (click)="abrirPDFMovil()">
+            Abrir PDF
+          </ion-button>
+        </ng-container>
+        
+        <ng-container *ngIf="!platform.is('mobile')">
+          <iframe 
+            [src]="documentUrl" 
+            width="100%" 
+            height="100%" 
+            frameborder="0">
+          </iframe>
+        </ng-container>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

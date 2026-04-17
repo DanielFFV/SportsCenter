@@ -1,0 +1,144 @@
+// Variables de color según la paleta
+// //Claro
+$color-base: #000000; /* Negro */
+$color-primary: #FF6F30; /* Naranja */
+$color-secondary: #1E90FF; /* Azul */
+$color-background: #E2E2E2; /* Gris */
+$color-support: #32CD32; /* Verde Lima */
+$color-text: #FFFFFF; /* Blanco */
+$color-accent: #FFD700; /* Dorado */
+
+.title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: $color-primary;
+  margin-bottom: 1rem;
+  text-align: center;
+  padding-inline: 6px;
+}
+
+.no-solicitudes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1.25rem 0;
+  color: $color-support;
+  
+  ion-icon {
+    font-size: 2.5rem;
+    color: $color-base;
+    margin-bottom: 0.625rem;
+  }
+}
+
+.solicitud-item {
+  display: flex;
+  flex-direction: column;
+  padding: 0.2rem;
+  margin: 0.5rem;
+  border-radius: 10px;
+  background: $color-background;
+  background-color: #{$color-background};
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+  @media (min-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &:hover {
+    transform: scale(1.03); /* Aumenta ligeramente el tamaño al pasar el ratón */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.1); /* Más sombra al hacer hover */
+  }
+
+  ion-icon[slot="start"] {
+    color: $color-primary;
+    font-size: 1.7rem;
+    margin-right: 0.6rem;
+    
+    @media (min-width: 768px) {
+      margin-right: 1rem;
+      font-size: 2.5rem;
+    }
+  }
+}
+
+.corredor-info {
+  background: $color-background;
+  margin: 0;
+  line-height: 1.5;
+  padding-bottom: 0.5rem;
+  background: transparent;
+  color: $color-secondary;
+
+  strong {
+    color: darken($color-secondary, $amount: 10);
+  }
+
+  .nombre {
+    font-weight: 600;
+    color: $color-primary;
+    margin: 0.25rem 0;
+  }
+
+}
+
+.botones-acciones {
+  background: $color-background;
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+
+  @media (min-width: 320px) {
+    flex-direction: column;
+  }
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    margin-top: 0;
+    min-width: 200px;
+  }
+
+  .aceptar {
+    --background: #{$color-support};
+    --background-activated: #{darken($color-support, 14)};
+    --color: #{$color-text};
+  
+    &:hover{
+      --background: #{darken($color-support, 7)};
+    }
+  }
+  
+  .rechazar {
+    --background: #dc3545;
+    --background-activated: #{darken(#dc3545, 10%)};
+    --color: #{$color-text};
+    
+    &:hover {
+      --background: #{darken(#dc3545, 5%)};
+    }
+  }
+
+  .texto-boton{
+    display: none;
+    
+    @media (min-width: 768px) {
+      display: inline;
+      margin-left: 0.2rem;
+    }
+  }
+
+}
+
+ion-button {
+  --border-radius: 8px;
+  --padding-start: 1rem;
+  --padding-end: 1rem;
+
+  ion-icon {
+    margin-right: 0.1rem;
+  }
+
+}

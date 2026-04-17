@@ -1,0 +1,220 @@
+// Variables de la paleta de colores
+$color-base: #000000;
+$color-primary: #FF6F30;
+$color-secondary: #1E90FF;
+$color-background: #E2E2E2;
+$color-support: #32CD32;
+$color-text: #FFFFFF;
+$color-accent: #FFD700;
+
+
+// $color-base: #34495E; /* Azul Noche */
+// $color-primary: #E74C3C; /* Rojo Intenso */
+// $color-secondary: #F39C12; /* Naranja Crepúsculo */
+// $color-background: #2C3E50; /* Gris Oscuro */
+// $color-support: #D5D8DC; /* Gris Plata */
+// $color-text: #FBFCFC; /* Blanco Nieve */
+// $color-accent: #2980B9; /* Azul Deportivo */
+
+
+// //Oscuro
+// $color-base: #2C3E50; /* Azul Petróleo */
+// $color-primary: #FF5733; /* Naranja Vibrante */
+// $color-secondary: #3498DB; /* Azul Eléctrico */
+// $color-background: #273746; /* Gris Oscuro */
+// $color-support: #F4D03F; /* Amarillo Suave */
+// $color-text: #FFFFFF; /* Blanco */
+// $color-accent: #D35400; /* Naranja Intenso */
+
+
+
+// Mixins para responsive
+@mixin desktop {
+  @media (min-width: 768px) {
+    @content;
+  }
+}
+
+// Estilos del componente
+:host {
+  --ion-toolbar-background: #{rgba($color-secondary, 0.95)};
+  --ion-background-color: #{$color-background};
+}
+
+ion-header {
+  &.ion-no-border {
+    background: linear-gradient(135deg, $color-secondary, darken($color-secondary, 15%));
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(
+        90deg,
+        rgba($color-primary, 0.5),
+        rgba($color-accent, 0.5)
+      );
+    }
+  }
+}
+
+.header-content {
+  padding: 0.6rem 0.1rem;
+  
+  .app-title {
+    color: $color-text;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 4px rgba($color-base, 0.1);
+
+    @include desktop {
+      font-size: 2rem;
+    }
+  }
+  
+  .welcome-message {
+    color: rgba($color-text, 0.9);
+    font-size: 1rem;
+    font-weight: 400;
+    margin: 0.25rem 0;
+    
+    @include desktop {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+#notificationButton {
+  position: relative;
+  padding: 0.2rem;
+  margin: 0 0.5rem;
+  
+  ion-badge {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    transform: translate(25%, -25%);
+    --background: #{$color-primary};
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border: 2px solid $color-text;
+  }
+  
+  ion-icon {
+    color: $color-text;
+    font-size: 1.5rem;
+  }
+
+  &:hover {
+    background: rgba($color-text, 0.3);
+    border-radius: 8px;
+
+    ion-icon {
+      color: $color-accent;
+    }
+  }
+}
+
+.ion-button-logout {
+  --color: #{$color-text};
+  --ripple-color: rgba(#{$color-text}, 0.1);
+  
+  ion-icon {
+    font-size: 1.3rem;
+  }
+  
+  .logout-text {
+    display: none;
+    font-weight: 500;
+    
+    @include desktop {
+      display: inline;
+      margin-left: 0.5rem;
+	  }
+  }
+
+  &:hover {
+    background: rgba($color-primary, 0.3);
+    border-radius: 8px;
+
+    ion-icon, .logout-text {
+      color: $color-accent;
+    }
+  }
+}
+
+.segment-container {
+  padding: 0.5rem;
+  background: rgba($color-secondary, 0.08);
+  border-radius: 8px;
+  margin: 0.2rem 0.2rem;
+    
+  ion-segment-button {
+    --background: transparent;
+    --background-checked: #{rgba($color-primary, 0.1)};
+    --color: #{rgba($color-text, 0.9)};
+    --color-checked: #{$color-accent};
+    --indicator-color: #{$color-primary};
+    border-radius: 12px;
+    min-height: 3rem;
+    text-transform: none;
+    font-weight: 500;
+    
+    &::part(indicator) {
+      display: none;
+    }
+
+    &:hover {
+      background: rgba($color-secondary, 0.2);
+      transform: translateY(-1px);
+
+      ion-icon, ion-label {
+        color: $color-base;
+        text-shadow: $color-base;
+      }
+    }
+    
+    ion-icon {
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+      margin-top: 0.2rem;
+    }
+    
+    ion-label {
+      font-size: 0.85rem;
+      margin-top: 0.25rem;
+      
+      @include desktop {
+        font-size: 1rem;
+      }
+    }
+  }  
+}
+
+.content-container {
+  background: $color-background;
+//   border-radius: 12px;
+  margin: 0.0rem;
+  padding: 0.5rem;
+  // overflow: hidden;
+//   box-shadow: 0 4px 20px rgba($color-base, 0.08);
+  
+  @include desktop {
+    margin: 0rem;
+    padding: 0.7rem;
+  }
+}
+
+ion-content {
+	--background: #{lighten($color-background, 5%)};
+	
+	&::part(scroll) {
+	  background: #{$color-background};
+	}
+}

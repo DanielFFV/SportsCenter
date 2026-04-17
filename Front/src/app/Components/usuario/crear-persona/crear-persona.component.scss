@@ -1,0 +1,298 @@
+// Paleta colores
+$color-base: #000000;
+$color-primary: #FF6F30;
+$color-secondary: #1E90FF;
+$color-background: #E2E2E2;
+$color-support: #32CD32;
+$color-text: #FFFFFF;
+$color-accent: #FFD700;
+
+// Variables
+$card-border-radius: 12px;
+$card-box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+$input-border-radius: 8px;
+$spacing-unit: 2px;
+$transition-speed: 0.3s;
+
+// Mixins
+@mixin font-size($size) {
+  font-size: $size;
+  line-height: 1.2;
+}
+
+@mixin gradient-background($start-color, $end-color) {
+  background: linear-gradient(135deg, $start-color, $end-color);
+}
+
+ion-content {
+  --background: #{$color-background};
+  --padding-top: #{calc($spacing-unit * 1)};
+  --padding-bottom: #{calc($spacing-unit) * 3};
+
+  @media (min-width: 768px) {
+    --padding: 5px;
+  }
+}
+
+ion-card {
+  margin: #{$spacing-unit * 2} 0;
+  border-radius: $card-border-radius;
+  box-shadow: $card-box-shadow;
+  overflow: hidden;
+}
+
+ion-card-header {
+  position: relative;
+  background: linear-gradient(175deg, rgba($color-primary, 0.3), transparent);
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+ion-card-title {
+  color: $color-primary;
+  @include font-size(1.35rem);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  padding-right: 25px;
+  gap: 10px;
+
+
+  ion-icon {
+    margin-right: $spacing-unit;
+    font-size: 1.75rem;
+  }
+
+  @media (min-width: 768px) {
+    --padding: 0px;
+    text-align: end;
+  }
+
+}
+
+ion-button.close-button {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  
+  --background: transparent;
+  --color: #{$color-primary};
+
+  ion-icon {
+    margin-right: $spacing-unit;
+    font-size: 1.7rem;
+  }
+  
+  &:hover {
+    --background: #{$color-primary};
+    --color: #{$color-background};
+  }
+}
+
+.section-container {
+  padding: 20px 0;
+  border-bottom: 1px solid rgba($color-base, 0.1);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.section-title {
+  color: $color-secondary;
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.custom-item {
+  --background: transparent;
+  // --border-color: rgba(#{$color-base}, 0.1);
+  // --border-radius: #{$card-border-radius};
+  // --border-style: solid;
+  // --border-width: 1px;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  margin-bottom: 16px;
+
+  &.item-has-focus {
+    --border-color: #{$color-primary};
+    --highlight-background: #{$color-primary};
+  }
+
+  ion-label {
+    --color: #{$color-base};
+    font-weight: 500;
+  }
+
+  ion-input, ion-select, ion-datetime {
+    --padding-start: 0;
+    --padding-top: 8px;
+    --padding-bottom: 8px;
+    font-size: 1rem;
+  }
+}
+
+ion-spinner{
+  color: $color-primary;
+}
+
+ion-card-content {
+  padding: #{calc($spacing-unit / 2)};
+}
+
+ion-header{
+  background-color: $color-primary;
+}
+
+// Form styles
+ion-item {
+  --padding-start: 0;
+  --inner-padding-end: 0;
+  margin-bottom: #{$spacing-unit * 1.5};
+
+  &::part(native) {
+    border-radius: $input-border-radius;
+  }
+}
+
+ion-label {
+  @include font-size(1rem);
+  font-weight: 500;
+  
+  &.label-floating {
+    transform: translateY(8px) scale(1);
+  }
+}
+
+ion-input, ion-select, ion-datetime {
+  @include font-size(1rem);
+  --padding-start: #{$spacing-unit};
+  --padding-end: #{$spacing-unit};
+  --padding-top: 5px; // Increase top padding to make room for label
+  --padding-bottom: 8px;
+  
+  &::part(placeholder) {
+    opacity: 0.5;
+  }
+}
+
+// Adjust placeholder and label positioning
+ion-item.item-has-focus ion-label.label-floating,
+ion-item.item-has-value ion-label.label-floating {
+  transform: translateY(0) scale(0.8);
+}
+
+ion-input:not(.has-value):not(.has-focus)::part(placeholder) {
+  opacity: 0;
+}
+
+ion-item.item-has-focus ion-input::part(placeholder),
+ion-item.item-has-value ion-input::part(placeholder) {
+  opacity: 0.5;
+}
+
+ion-text.error-message {
+  @include font-size(0.875rem);
+  margin-left: $spacing-unit;
+  margin-top: calc($spacing-unit / 2);
+  display: block;
+}
+
+ion-datetime {
+  background-color: transparent;
+  color: $color-base;
+  border: 1px solid $color-background;
+  border-radius: $input-border-radius;
+  overflow: hidden;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+
+  &::part(wheel-item) {
+    color: $color-base;
+  }
+  
+  &::part(active) {
+    color: $color-primary;
+    font-weight: 600;
+  }
+
+  &:hover {
+    background-color: rgba($color-background, 0.6);
+  }
+
+}
+
+ion-spinner {
+  color: $color-primary;
+  border-radius: 8px;
+}
+
+.corredor-info {
+  margin-top: -8px;
+  width: 100%;
+  padding-inline: 10px;
+  margin-inline-start: 10px;
+  // text-align: center;
+  // justify-content: center;
+  align-items: center;
+  
+  h3 {
+    font-size: 1.2rem;
+    margin-bottom: 4px;
+    font-weight: 500;
+    color: $color-primary;
+  }
+  
+  p {
+    margin: 2px 0;
+    color: $color-secondary;
+  }
+}
+
+// Checkbox styles
+ion-checkbox {
+  --size: 20px;
+  // --background-checked: #{$color-primary};
+  --border-color: #{$color-primary};
+  --border-radius: 4px;
+  margin: calc($spacing-unit * 2);
+}
+
+// Modal styles
+ion-modal {
+  --background: #{$color-background};
+  --border-radius: 8px;
+}
+
+// Button styles
+ion-button[type="submit"] {
+  --background: #{$color-support};
+  margin-top: #{$spacing-unit * 3};
+  @include font-size(1.125rem);
+  font-weight: 600;
+  --border-radius: #{$input-border-radius};
+  height: 48px;
+}
+
+// Responsive styles
+@media (min-width: 768px) {
+  ion-content {
+    --padding-start: 5%;
+    --padding-end: 5%;
+  }
+
+  ion-card {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  ion-grid {
+    --ion-grid-column-padding: #{$spacing-unit * 1.5};
+  }
+}

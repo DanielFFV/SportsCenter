@@ -1,0 +1,100 @@
+<ion-card class="trail-runner-profile">
+  <ion-card-header>    
+    <ion-card-title>
+      <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+      {{ persona?.nombre }} {{ persona?.apellido }}
+    </ion-card-title>
+    <ion-card-subtitle>
+      <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
+      {{ persona?.email }}
+    </ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-list>
+      <ion-item lines="none">
+        <ion-icon name="id-card-outline" aria-hidden="true" slot="start"></ion-icon>
+        <ion-label>
+          <h2>Documento:</h2>
+        </ion-label>
+        <p>{{ persona?.documento }}</p>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-icon name="document-text-outline" aria-hidden="true" slot="start"></ion-icon>
+        <ion-label>
+          <h2>Tipo de Documento:</h2>
+        </ion-label>
+        <p>{{ persona?.tipoDocumento?.nombre }}</p>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-icon [name]="persona?.estado ? 'checkmark-circle' : 'alert-circle'" [color]="persona?.estado ? 'success' : 'warning'" aria-hidden="true" slot="start"></ion-icon>
+        <ion-label>
+          <h2>Estado:</h2>
+        </ion-label>
+        <p>{{ persona?.estado ? 'Activo' : 'Inactivo' }}</p>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-icon name="calendar-outline" aria-hidden="true" slot="start"></ion-icon>
+        <ion-label>
+          <h2>Fecha de Nacimiento:</h2>
+        </ion-label>
+        <p>{{ persona?.fechaNacimiento | date: 'mediumDate':'':'es' }}</p>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-icon name="call-outline" aria-hidden="true" slot="start"></ion-icon>
+        <ion-label>
+          <h2>Celular:</h2>
+        </ion-label>
+        <p>{{ persona?.celular }}</p>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-icon name="home-outline" aria-hidden="true" slot="start"></ion-icon>
+        <ion-label>
+          <h2>Dirección:</h2>
+        </ion-label>
+        <p>{{ persona?.direccion }}</p>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-icon name="male-female-outline" aria-hidden="true" slot="start"></ion-icon>
+        <ion-label>
+          <h2>Género:</h2>
+        </ion-label>
+        <p>{{ persona?.genero }}</p>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-icon name="shirt-outline" aria-hidden="true" slot="start"></ion-icon>
+        <ion-label>
+          <h2>Talla de Camiseta:</h2>
+        </ion-label>
+        <p>{{ persona?.tallaCamiseta }}</p>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-icon name="medkit-outline" aria-hidden="true" slot="start"></ion-icon>
+        <ion-label>
+          <h2>EPS:</h2>
+        </ion-label>
+        <p>{{ persona?.eps }}</p>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-icon name="water-outline" aria-hidden="true" slot="start"></ion-icon>
+        <ion-label>
+          <h2>RH:</h2>
+        </ion-label>
+        <p>{{ persona?.rh }}</p>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-icon name="calendar-outline" aria-hidden="true" slot="start"></ion-icon>
+        <ion-label>
+          <h2>Te registraste el:</h2>
+        </ion-label>
+        <p>{{ persona?.fechaCreacion | date: 'mediumDate':'':'es' }}</p>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-icon name="time-outline" aria-hidden="true" slot="start"></ion-icon>
+        <ion-label>
+          <h2>Última Modificación:</h2>
+        </ion-label>
+        <p>{{ persona?.fechaModificacion | date: 'mediumDate':'':'es' }}</p>
+      </ion-item>
+    </ion-list>
+  </ion-card-content>
+</ion-card>

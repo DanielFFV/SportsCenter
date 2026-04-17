@@ -1,0 +1,45 @@
+<ion-content class="ion-padding">
+  <div class="login-container">
+    <ion-card class="login-card">
+      <ion-card-header>
+        <div class="logo-container">
+          <!-- Aquí puedes agregar tu logo -->
+          <ion-icon name="fitness-outline" class="app-logo"></ion-icon>
+        </div>
+        <ion-card-title>Bienvenido</ion-card-title>
+        <p class="subtitle">¡Inicia sesión para continuar!</p>
+      </ion-card-header>
+      
+      <ion-card-content>
+        <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+          <ion-item class="form-item">
+            <ion-label position="floating">Correo electrónico</ion-label>
+            <ion-input type="email" formControlName="email"></ion-input>
+          </ion-item>
+          
+          <ion-item class="form-item">
+            <ion-label position="floating">Contraseña</ion-label>
+            <ion-input type="password" formControlName="password"></ion-input>
+          </ion-item>
+
+          <div class="button-container">
+            <ion-button expand="block" type="submit" class="submit-button" shape="round">
+              <ion-icon slot="start" name="log-in-outline"></ion-icon>
+              Iniciar sesión
+            </ion-button>
+
+            <ion-button expand="block" class="register-button" (click)="routerLink('registro')" shape="round">
+              <ion-icon name="person-add-outline" slot="start"></ion-icon>
+              Registrarse
+            </ion-button>
+
+            <ion-button expand="block" class="back-button" (click)="routerLink('home')" fill="outline" shape="round">
+              <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
+              Atrás
+            </ion-button>
+          </div>
+        </form>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

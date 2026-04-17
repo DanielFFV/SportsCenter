@@ -1,0 +1,53 @@
+<ion-content>
+  <div class="modal-container">
+    <ion-header class="ion-no-border">
+      <ion-toolbar>
+        <ion-title>Categorias</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="dismissModal()">
+            <ion-icon name="close-outline"></ion-icon>
+            Cerrar
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list >
+        <ion-item lines="none" class="carrera-item" *ngFor="let carreraHija of carrerasHijas">
+          <ion-thumbnail slot="start">
+            <img [src]="'assets/images/' + identificacionCortaPadre + '-MAIN.jpg' || 'assets/default-race.jpg'" [alt]="carreraHija.nombre">
+          </ion-thumbnail>
+          <ion-label>
+            <h2>{{ carreraHija.nombre }}</h2>
+            <p>
+              <ion-icon name="calendar-outline"></ion-icon>
+              Fecha: {{ carreraHija.fechaCarrera | date:'shortDate' }}
+            </p>
+            <p>
+              <ion-icon name="speedometer-outline"></ion-icon>
+              Distancia: {{ carreraHija.distancia }}Km
+            </p>
+          </ion-label>
+          <div class="botones">
+            <label *ngIf="estadoFechaInscripcion(carreraHija) && puedeInscribir(carreraHija)">Inscripción</label>
+            <label *ngIf="estadoFechaInscripcion(carreraHija) && !puedeInscribir(carreraHija)">
+              <p>
+                <ion-icon name="checkmark-circle"></ion-icon>
+                Inscrito
+              </p>
+            </label>
+            <label *ngIf="!estadoFechaInscripcion(carreraHija)">Inscripción Cerrada</label>
+            <ion-button class="boton-individual" *ngIf="puedeInscribir(carreraHija)" (click)="inscribirseIndividual(carreraHija)" [disabled]="!estadoFechaInscripcion(carreraHija)">
+              <ion-icon slot="icon-only" name="person-outline"></ion-icon>
+              Individual
+            </ion-button>
+            <ion-button class="boton-grupal" *ngIf="carreraHija.estadoGrupos && esCapitan" (click)="inscribirseGrupo(carreraHija)" [disabled]="!estadoFechaInscripcion(carreraHija)">
+              <ion-icon slot="icon-only" name="people-outline"></ion-icon>
+              Grupo
+            </ion-button>
+          </div>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </div>
+</ion-content>

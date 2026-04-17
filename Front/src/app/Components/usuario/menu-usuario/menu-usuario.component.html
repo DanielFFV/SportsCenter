@@ -1,0 +1,54 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="secundary">
+    <ion-title class="ion-padding-start">
+      <div class="header-content">
+        <h1 class="app-title">GlobalGRegistry</h1>
+        <h2 class="welcome-message" *ngIf="userData?.nombre && userData?.genero == 'M'">Bienvenido, {{userData?.nombre}}</h2>
+        <h2 class="welcome-message" *ngIf="userData?.nombre && userData?.genero == 'F'">Bienvenida, {{userData?.nombre}}</h2>
+      </div>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button id="notificationButton" (click)="openPopoverNotificaciones($event)" fill="clear">
+        <ion-icon name="notifications-outline"></ion-icon>
+        <ion-badge color="danger" *ngIf="cantNotificaciones > 0">{{cantNotificaciones}}</ion-badge>
+      </ion-button>
+      <ion-button class="ion-button-logout" fill="clear" (click)="logout()">
+        <ion-icon name="log-out-outline" slot="start"></ion-icon>
+        <span class="logout-text">Cerrar sesión</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-segment [(ngModel)]="selectedSegment" mode="ios" class="segment-container" scrollable>
+    <ion-segment-button value="carrerasDisp" class="segment-button">
+      <ion-icon name="flag-outline"></ion-icon>
+      <ion-label>Carreras Disponibles</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="carreraActiva" class="segment-button">
+      <ion-icon name="timer-outline"></ion-icon>
+      <ion-label>Carreras Activas</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="gestionGrupo" class="segment-button">
+      <ion-icon name="people-outline"></ion-icon>
+      <ion-label>Mi Equipo</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="perfilUsuario" class="segment-button">
+      <ion-icon name="person-outline"></ion-icon>
+      <ion-label>Mi Perfil</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+</ion-header>
+
+<ion-content>
+  
+  <div class="content-container">
+    <ng-container [ngSwitch]="selectedSegment">
+      <app-listado-carreras-disponibles *ngSwitchCase="'carrerasDisp'"></app-listado-carreras-disponibles>
+      <app-gestion-grupo *ngSwitchCase="'gestionGrupo'"></app-gestion-grupo>
+      <app-carreras-activas *ngSwitchCase="'carreraActiva'"></app-carreras-activas>
+      <app-perfil-usuario *ngSwitchCase="'perfilUsuario'"></app-perfil-usuario>
+    </ng-container>
+  </div>
+</ion-content>
+

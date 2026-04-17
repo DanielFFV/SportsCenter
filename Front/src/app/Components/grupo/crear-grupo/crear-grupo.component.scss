@@ -1,0 +1,50 @@
+// Variables de color según la paleta proporcionada
+$color-base: #000000;
+$color-primary: #FF6F30;
+$color-secondary: #1E90FF;
+$color-background: #E2E2E2;
+$color-support: #32CD32;
+$color-text: #FFFFFF;
+$color-accent: #FFD700;
+
+:host {
+    --ion-background-color: #{$color-background};
+    --ion-text-color: #{$color-text};
+    --border-radius: 16px;
+}
+
+.gradient-header {
+    background-color: $color-secondary;
+    ion-toolbar {
+        --background: linear-gradient(145deg, #{lighten($color-secondary, 10%)}, #{$color-secondary});
+        --color: #{$color-text};
+    }
+}
+
+ion-item{
+    --background: #{rgba($color-background,0.7)};
+    --color: #{$color-secondary};
+    --border-radius: 12px;
+    margin: 20px;
+    padding: auto;
+
+    ion-label{
+        --color: #{darken($color-secondary,10)};
+        font-weight: 500;
+    }
+}
+
+ion-text{
+    margin-inline: 40px;
+    margin-top: -30px;
+}
+
+.button-crear {
+    --background: #{$color-primary};      /* Color de fondo personalizado */
+    --color: #{$color-text};           /* Color del texto */
+    --border-radius: 12px;       /* Borde redondeado si lo necesitas */
+    --padding: 10px 20px;  
+    margin-inline: 30px;     /* Espaciado interno del botón */
+    font-weight: 500;
+    text-shadow: 1px 1px 2px black, -1px -1px 2px black, 1px -1px 2px black, -1px 1px 2px black;
+}

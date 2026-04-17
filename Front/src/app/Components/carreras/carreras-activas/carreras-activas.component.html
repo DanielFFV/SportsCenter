@@ -1,0 +1,116 @@
+<ion-list class="registration-list">
+  <div class="no-carreras" *ngIf="registroCarreras?.length === 0">
+    <ion-icon name="information-circle-outline"></ion-icon>
+    <h4>No estás inscrito en ninguna carrera</h4>
+  </div>
+  <ion-item *ngFor="let registro of registroCarreras" lines="none" class="registration-item">
+    <ion-card class="registration-card">
+      <div class="race-image-container">
+        <ion-img 
+          [src]="'assets/images/' + getIdentificacionCorta(registro.carrera.identificacion) + '-MAIN.jpg'" 
+          (ionError)="'assets/images/default.jpg'"
+          alt="Imagen de la carrera"
+          class="race-image">
+        </ion-img>
+        <div class="race-overlay" >
+          <!-- <div class="race-overlay" [style.backgroundColor]="registro.carrera.colorDeFondo + '99'"> -->
+          <div class="registration-number">
+            <ion-badge class="registration-badge">Registro No. {{ registro.carrera.identificacion }}{{ registro.numeroRegistro }}</ion-badge>
+          </div>
+          <h2 class="race-title">{{ registro.carrera.nombre }}</h2>
+        </div>
+      </div>
+
+      <ion-card-content>
+        <div class="race-details">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="12" size-md="6">
+                <ion-item lines="none">
+                  <ion-icon name="location-outline" slot="start" ></ion-icon>
+                  <ion-label>
+                    <h3>Ubicación</h3>
+                    <p>{{ registro.carrera.ubicacion }}</p>
+                  </ion-label>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-md="6">
+                <ion-item lines="none">
+                  <ion-icon name="person-outline" slot="start" ></ion-icon>
+                  <ion-label>
+                    <h3>Responsable</h3>
+                    <p>{{ registro.carrera.responsable }}</p>
+                  </ion-label>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-md="6">
+                <ion-item lines="none">
+                  <ion-icon name="flag-outline" slot="start" ></ion-icon>
+                  <ion-label>
+                    <h3>Estado de la Carrera</h3>
+                    <p>{{ registro.carrera.estado ? 'Activa' : 'Inactiva' }}</p>
+                  </ion-label>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-md="6">
+                <ion-item lines="none">
+                  <ion-icon name="calendar-outline" slot="start" ></ion-icon>
+                  <ion-label>
+                    <h3>Fecha de la Carrera</h3>
+                    <p>{{ registro.carrera.fechaCarrera | date:'mediumDate':'':'es' }}</p>
+                  </ion-label>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-md="6">
+                <ion-item lines="none">
+                  <ion-icon name="shirt-outline" aria-hidden="true" slot="start"></ion-icon>
+                  <ion-label>
+                    <h3>Dorsal</h3>
+                    <!-- <p>{{ registro.numeroRegistro }}</p> -->
+                    <p>{{ registro.corredor.dorsal }}</p>
+                  </ion-label>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-md="6">
+                <ion-item lines="none">
+                  <ion-icon name="speedometer-outline" slot="start"></ion-icon>
+                  <ion-label>
+                    <h3>Distancia</h3>
+                    <p>{{ registro.carrera.distancia }} km </p>
+                  </ion-label>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-md="6">
+                <ion-item lines="none" *ngIf="registro.grupo?.nombre">
+                  <ion-icon name="people-outline" slot="start"></ion-icon>
+                  <ion-label>
+                    <h3>Grupo</h3>
+                    <p>{{ registro?.grupo?.nombre }} </p>
+                  </ion-label>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+
+        <div class="registration-status">
+          <ion-chip [color]="registro.estado ? 'success' : 'warning'">
+            <ion-icon [name]="registro.estado ? 'checkmark-circle' : 'alert-circle'"></ion-icon>
+            <ion-label>{{ registro.estado ? 'Registro Activo' : 'Registro Inactivo' }}</ion-label>
+          </ion-chip>
+        </div>
+
+        <div class="card-actions">
+          <ion-button class="card-action-detail" (click)="openModalDetalle(registro.carrera)" >
+            <ion-icon name="information-circle-outline" slot="start"></ion-icon>
+            Detalles
+          </ion-button>
+          <ion-button (click)="salirCarrera(registro)" color="danger">
+            <ion-icon name="exit-outline" slot="start"></ion-icon>
+            Cancelar inscripción
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </ion-item>
+</ion-list>

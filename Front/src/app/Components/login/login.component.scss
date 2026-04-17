@@ -1,0 +1,147 @@
+// Variables de color según la paleta proporcionada
+$color-base: #000000;
+$color-primary: #FF6F30;
+$color-secondary: #1E90FF;
+$color-background: #E2E2E2;
+$color-support: #32CD32;
+$color-text: #FFFFFF;
+$color-accent: #FFD700;
+
+:host {
+  --ion-background-color: #{$color-background};
+  --ion-text-color: #{$color-text};
+}
+
+ion-content {
+  --background: url('/assets/images/running-bg.jpg') no-repeat center center / cover;
+  
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+    padding: 20px;
+  }
+
+  .login-card {
+    background: rgba($color-background, 0.6);
+    border-radius: 20px;
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+    box-shadow: 0 8px 32px rgba($color-base, 0.1);
+    backdrop-filter: blur(10px);
+    
+    .logo-container {
+      text-align: center;
+      margin-bottom: 20px;
+      
+      .app-logo {
+        font-size: 48px;
+        color: $color-primary;
+      }
+    }
+
+    ion-card-header {
+      padding: 24px 24px 0;
+      
+      ion-card-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: $color-base;
+        text-align: center;
+        margin-bottom: 8px;
+      }
+      
+      .subtitle {
+        font-size: 16px;
+        color: rgba($color-base, 0.7);
+        text-align: center;
+        margin: 0;
+      }
+    }
+
+    ion-card-content {
+      padding: 24px;
+
+      .form-item {
+        --background: transparent;
+        --border-color: rgba($color-base, 0.1);
+        --border-width: 1px;
+        --border-style: solid;
+        --border-radius: 10px;
+        --padding-start: 16px;
+        --padding-end: 16px;
+        margin-bottom: 16px;
+        
+        ion-label {
+          color: rgba($color-base, 0.7);
+        }
+        
+        ion-input {
+          --color: #{$color-base};
+          font-size: 16px;
+        }
+      }
+
+      .button-container {
+        margin-top: 24px;
+        
+        ion-button {
+          margin-bottom: 12px;
+          height: 48px;
+          --border-radius: 24px;
+          font-weight: 600;
+          
+          &.submit-button {
+            --background: #{$color-primary};
+            --color: #{$color-text};
+            
+            &:hover {
+              --background: #{darken($color-primary, 5%)};
+            }
+          }
+          
+          &.register-button {
+            --background: #{$color-secondary};
+            --color: #{$color-text};
+            
+            &:hover {
+              --background: #{darken($color-secondary, 5%)};
+            }
+          }
+          
+          &.back-button {
+            --color: #{$color-base};
+            --border-color: #{rgba($color-base, 0.2)};
+            margin-bottom: 0;
+            
+            &:hover {
+              --background: #{rgba($color-base, 0.05)};
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  ion-content {
+    .login-card {
+      margin: 16px;
+      
+      ion-card-header {
+        padding: 20px 20px 0;
+        
+        ion-card-title {
+          font-size: 20px;
+        }
+      }
+      
+      ion-card-content {
+        padding: 20px;
+      }
+    }
+  }
+}
